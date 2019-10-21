@@ -1,5 +1,6 @@
-import SplashScreen from './SplashScreen';
+import Feed from './AppScreens/Feed'
 import Login from './AuthScreens/Login'
 import SignUp from './AuthScreens/SignUp'
+import SplashScreen from './SplashScreen';
 
-export { Login, SignUp, SplashScreen }
+export { Feed, Login, SignUp, SplashScreen }
