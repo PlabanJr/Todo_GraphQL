@@ -1,10 +1,9 @@
-import {Dimensions, StyleSheet} from 'react-native';
-
-const SCREEN_WIDTH = Dimensions.get('screen').width;
+import { StyleSheet } from 'react-native';
+import { colors, SCREEN_WIDTH } from '../../constants';
 
 export default StyleSheet.create({
   appName: {
-    color: '#e688a1',
+    color: colors.appColor,
     fontSize: 60,
   },
   button: {
@@ -14,7 +13,7 @@ export default StyleSheet.create({
     width: SCREEN_WIDTH / 2 - 30,
   },
   buttonText: {
-    color: '#fff',
+    color: colors.white,
     fontSize: 20,
   },
   container: {

@@ -1,21 +1,12 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-const SCREEN_WIDTH = Dimensions.get('screen').width
+import { colors, SCREEN_WIDTH } from '../../constants';
+
 
 export default StyleSheet.create({
     appName: {
-        color: '#e688a1',
+        color: colors.appColor,
         fontSize: 60,
-    },
-    button: {
-        alignItems: 'center',
-        borderRadius: 6,
-        padding: 10,
-        width: SCREEN_WIDTH - 40,
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 20,
     },
     container: {
         flex: 1,
@@ -30,13 +21,6 @@ export default StyleSheet.create({
         alignItems: 'center',
         flex: 4,
         justifyContent: 'center',
-    },
-    inputFields: {
-        borderRadius: 6,
-        borderWidth: 1,
-        marginBottom: 10,
-        padding: 10,
-        width: SCREEN_WIDTH - 40
     },
     upperFieldContainer: {
         flexDirection: 'row',
