@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors, SCREEN_WIDTH } from '../../constants';
+import { colors } from '../../constants';
 
 export default StyleSheet.create({
   appName: {
@@ -10,7 +10,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     borderRadius: 4,
     padding: 10,
-    width: SCREEN_WIDTH / 2 - 30,
   },
   buttonText: {
     color: colors.white,

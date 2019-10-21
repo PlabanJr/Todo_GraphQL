@@ -11,7 +11,6 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        padding: 20,
     },
     footer: {
         alignItems: 'center',
@@ -21,6 +20,12 @@ export default StyleSheet.create({
         alignItems: 'center',
         flex: 4,
         justifyContent: 'center',
+    },
+    topHeader: {
+        paddingLeft: 20
+    },
+    headerText: {
+        color: colors.blue
     },
     upperFieldContainer: {
         flexDirection: 'row',

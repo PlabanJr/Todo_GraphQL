@@ -1,22 +1,30 @@
 import React, { Component } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Text, View } from 'react-native'
+import { NavigationStackProp } from 'react-navigation-stack';
 
 import Style from './style';
+import { Button } from '../../reusables';
+import { colors, SCREEN_WIDTH } from '../../constants';
 
-export default class SplashScreen extends Component {
+interface Props {
+    navigation: NavigationStackProp<{}>;
+}
+
+export default class SplashScreen extends Component<Props, {}> {
+    handleOnPress = (route: string) => {
+        this.props.navigation.navigate(route)
+    }
+
     render() {
+        const { navigation } = this.props
         return (
             <View style={Style.container}>
                 <View style={Style.header}>
                     <Text style={Style.appName}>ToDo</Text>
                 </View>
                 <View style={Style.footer}>
-                    <TouchableOpacity style={[Style.button, { backgroundColor: '#1089ff' }]}>
-                        <Text style={Style.buttonText}>LOGIN</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[Style.button, { backgroundColor: '#bc5090' }]}>
-                        <Text style={Style.buttonText}>SIGN UP</Text>
-                    </TouchableOpacity>
+                    <Button text="LOGIN" color={colors.blue} width={SCREEN_WIDTH / 2 - 30} onPress={() => this.handleOnPress('Login')} />
+                    <Button text="SIGN UP" color={colors.purple} width={SCREEN_WIDTH / 2 - 30} onPress={() => this.handleOnPress('SignUp')} />
                 </View>
             </View>
         )
