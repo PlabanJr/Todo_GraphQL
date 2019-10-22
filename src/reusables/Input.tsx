@@ -2,15 +2,17 @@ import React, { Component } from 'react'
 import { StyleSheet, TextInput } from 'react-native'
 
 interface Props {
+    onChangeText: (text: string) => void,
     placeholder: string,
-    style: object
+    style: object,
+    value?: string
 }
 
 export default class Input extends Component<Props, {}> {
 
     render() {
         return (
-            <TextInput {...this.props} style={[Style.inputField, this.props.style]} />
+            <TextInput onChangeText={this.props.onChangeText} {...this.props} style={[Style.inputField, this.props.style]} />
         )
     }
 }
