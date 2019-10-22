@@ -9,6 +9,12 @@ interface UserInfo {
     gender?: string
 }
 
+enum CompletedEnum {
+    PENDING,
+    COMPLETED,
+    IN_PROGRESS
+}
+
 export const SIGN_UP = gql`
     mutation SingUpResult($user: UserInfo!){
         signUp(user: $user){
@@ -30,3 +36,15 @@ export const LOGIN_USER = gql`
             token
         }
     }`
+
+export const ADD_TODO = gql`
+    mutation Todo($title: String!, $completed: CompletedEnum!) {
+        createTodo(input: {title: $title, completed: $completed}){
+            id
+			title
+			completed
+			owner_id
+			ollaborater_ids
+        }
+}
+`

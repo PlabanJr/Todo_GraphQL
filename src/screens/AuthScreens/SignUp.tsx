@@ -7,7 +7,7 @@ import { NavigationStackProp } from 'react-navigation-stack';
 import { colors, SCREEN_WIDTH } from '../../constants'
 import { Button, Input } from '../../reusables';
 import { SIGN_UP } from "../../graphql/resolver";
-import { validateUsername, validateGender, validateEmail, validatePassword } from "../../utils";
+import { signUpService, validateUsername, validateGender, validateEmail, validatePassword } from "../../utils";
 
 import Style from './style';
 
@@ -64,6 +64,11 @@ class SignUp extends Component<Props, {}>{
         })
             .then((res: any) => {
                 console.log(res, "Res")
+                let token = res.data.signUp.token;
+                let userName = res.data.signUp.fullname;
+
+                signUpService(token, userName)
+                this.props.navigation.navigate('Feed')
             })
             .catch((err: any) => {
                 console.log(err, "err")

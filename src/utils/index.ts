@@ -1,3 +1,37 @@
+import AsyncStorage from '@react-native-community/async-storage'
+
+const { removeItem, setItem } = AsyncStorage
+
+export const signUpService = (token: string, userName: string) => {
+    return new Promise(() => {
+        setItem('userToken', token)
+            .then(() => {
+                setItem('userName', userName)
+            })
+    })
+}
+
+export const loginService = (token: string, userName: string) => {
+    return new Promise(() => {
+        setItem('userToken', token)
+            .then(() => {
+                setItem('userName', userName)
+            })
+    })
+}
+
+export const logOutService = () => {
+    return new Promise((resolve, reject) => {
+        removeItem('userToken')
+            .then((res) => {
+                removeItem('userName')
+                resolve(res)
+            }).catch((err) => {
+                reject(err)
+            })
+    })
+}
+
 export const validateUsername = (userName: string) => {
     if (!userName || userName.length <= 3) return false;
 
