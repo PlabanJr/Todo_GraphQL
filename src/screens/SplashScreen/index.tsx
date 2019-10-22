@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import { NavigationStackProp } from 'react-navigation-stack';
 
-import Style from './style';
-import { Button } from '../../reusables';
 import { colors, SCREEN_WIDTH } from '../../constants';
+import { Button } from '../../reusables';
+
+import Style from './style';
 
 interface Props {
     navigation: NavigationStackProp<{}>;
