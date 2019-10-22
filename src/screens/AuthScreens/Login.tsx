@@ -7,9 +7,9 @@ import { NavigationStackProp } from 'react-navigation-stack';
 import { colors, SCREEN_WIDTH, } from '../../constants'
 import { Button, Input } from '../../reusables'
 import { LOGIN_USER } from "../../graphql/resolver";
+import { loginService } from "../../utils";
 
 import Style from './style';
-import { thisTypeAnnotation } from '@babel/types';
 
 interface Props {
     navigation: NavigationStackProp<{}>;
@@ -36,6 +36,9 @@ class Login extends Component<Props, {}>{
         })
             .then((res: any) => {
                 console.log(res)
+                let token = res.data.login.token;
+                let userName = res.data.login.fullname;
+                loginService(token, userName)
                 this.props.navigation.navigate('Feed')
             })
             .catch((err: any) => {
@@ -58,7 +61,7 @@ class Login extends Component<Props, {}>{
                     <Text style={Style.appName}>ToDo</Text>
                 </View>
                 <View style={Style.footer}>
-                    <Input placeholder="Email..." style={inputFieldStyle} value={email} onChangeText={(email) => this.setState({ email })} />
+                    <Input placeholder="Email..." style={inputFieldStyle} value={email} onChangeText={(email) => this.setState({ email: email.toLowerCase() })} />
                     <Input placeholder="Password..." style={inputFieldStyle} value={password} onChangeText={(password) => this.setState({ password })} />
                     <Button color={colors.blue} text="LOGIN" width={SCREEN_WIDTH - 40} onPress={() => this.handleLogin()} />
                 </View>
