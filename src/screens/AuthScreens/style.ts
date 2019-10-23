@@ -21,6 +21,12 @@ export default StyleSheet.create({
         flex: 4,
         justifyContent: 'center',
     },
+    loading: {
+        alignItems: 'center',
+        borderRadius: 6,
+        padding: 10,
+        width: SCREEN_WIDTH - 40
+    },
     topHeader: {
         paddingLeft: 20
     },

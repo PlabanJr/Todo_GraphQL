@@ -28,6 +28,10 @@ export default StyleSheet.create({
         flexGrow: 1,
         justifyContent: 'center',
     },
+    loading: {
+        flex: 1,
+        justifyContent: 'center'
+    },
     textArea: {
         borderColor: colors.purple,
         fontSize: 16,

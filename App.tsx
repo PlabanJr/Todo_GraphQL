@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { SafeAreaView, StyleSheet } from 'react-native'
 import { ApolloProvider } from '@apollo/react-hooks';
 
+import createClient from "./src/graphql/client";
 import AppNavigator from './src/navigation/AppNavigator';
 
-import { client } from "./src/graphql/client";
+export let client = createClient()
 
 export default class App extends Component {
   render() {
