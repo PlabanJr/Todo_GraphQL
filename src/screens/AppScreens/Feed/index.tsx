@@ -1,7 +1,7 @@
 import { find, remove } from "lodash";
 import React, { Component } from 'react'
 import { withApollo } from "react-apollo";
-import { Text, View, FlatList, ActivityIndicator, } from 'react-native'
+import { Text, View, FlatList, ActivityIndicator, Alert, } from 'react-native'
 import { NavigationStackProp } from 'react-navigation-stack';
 
 import { colors } from '../../../constants';
@@ -31,7 +31,6 @@ class Feed extends Component<Props, {}> {
     }
 
     fetchTodos = async () => {
-        this.setState({ loading: true })
         this.props.client.query({
             query: LIST_TODOS,
         }).then((res: any) => {
@@ -39,6 +38,8 @@ class Feed extends Component<Props, {}> {
             this.setState({ todoList: todoList, loading: false })
         }).catch((err: any) => {
             console.log(err, "ERR")
+            this.setState({ loading: false })
+            Alert.alert('Loading Failed!')
         })
     }
 
