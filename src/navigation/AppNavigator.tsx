@@ -5,9 +5,9 @@ import { AuthLoading, Login, SignUp, Feed, SplashScreen } from '../screens';
 
 const AuthStack = createStackNavigator(
     {
-        SplashScreen: SplashScreen,
-        Login: Login,
-        SignUp: SignUp,
+        SplashScreen,
+        Login,
+        SignUp
     },
     {
         headerMode: "none",
@@ -17,7 +17,7 @@ const AuthStack = createStackNavigator(
 
 const AppStack = createStackNavigator(
     {
-        Feed: Feed
+        Feed
     },
     {
         headerMode: 'none'

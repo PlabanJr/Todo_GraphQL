@@ -41,7 +41,7 @@ export default class FeedItem extends Component<Props, {}> {
         let status = this.getStatusText(item.completed);
         const rightButtons = [
             <TouchableOpacity style={Style.button} onPress={() => handleDone(item)}>
-                <Text style={[Style.buttonText, { color: colors.pendingColor, }]} >Done</Text>
+                <Text style={[Style.buttonText, { color: colors.pendingColor, }]} >{status.status === "Completed" ? "Undone" : "Done"}</Text>
             </TouchableOpacity>,
             <TouchableOpacity style={Style.button} onPress={() => handleDelete(id)}>
                 <Text style={[Style.buttonText, { color: colors.doneColor, }]}>Delete</Text>

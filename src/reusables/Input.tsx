@@ -13,7 +13,7 @@ export default class Input extends Component<Props, {}> {
 
     render() {
         return (
-            <TextInput onChangeText={this.props.onChangeText} {...this.props} style={[Style.inputField, this.props.style]} />
+            <TextInput autoCapitalize="none" onChangeText={this.props.onChangeText} {...this.props} style={[Style.inputField, this.props.style]} />
         )
     }
 }
