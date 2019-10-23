@@ -39,7 +39,7 @@ export const validateUsername = (userName: string) => {
 }
 
 export const validateGender = (gender: string) => {
-    let genderLowerCase = gender.toLowerCase()
+    const genderLowerCase = gender.toLowerCase()
 
     if (!genderLowerCase || !genderLowerCase.length) return false;
     if (genderLowerCase === 'male' || genderLowerCase === 'female') {

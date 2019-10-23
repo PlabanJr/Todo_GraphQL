@@ -53,7 +53,7 @@ class Login extends Component<Props, {}>{
                 let token = res.data.login.token;
                 let userName = res.data.login.fullname;
                 loginService(token, userName)
-                let client = createClient()
+                createClient()
                 this.props.navigation.navigate('Feed')
             })
             .catch((err: any) => {
@@ -79,9 +79,9 @@ class Login extends Component<Props, {}>{
                     <Text style={Style.appName}>ToDo</Text>
                 </View>
                 <View style={Style.footer}>
-                    <Input placeholder="Email..." style={inputFieldStyle} value={email} onChangeText={(email) => this.setState({ email: email.toLowerCase() })} />
+                    <Input placeholder="Email..." style={inputFieldStyle} value={email} onChangeText={(email) => this.setState({ email })} />
                     <Input secureTextEntry={true} placeholder="Password..." style={inputFieldStyle} value={password} onChangeText={(password) => this.setState({ password })} />
-                    {loading ? <ActivityIndicator style={lodingStyle} /> : <Button color={colors.blue} text="LOGIN" width={SCREEN_WIDTH - 40} onPress={() => this.handleLogin()} />}
+                    {loading ? <ActivityIndicator style={lodingStyle} /> : <Button color={colors.blue} text="LOGIN" width={SCREEN_WIDTH - 40} onPress={this.handleLogin} />}
 
                 </View>
             </KeyboardAwareScrollView>

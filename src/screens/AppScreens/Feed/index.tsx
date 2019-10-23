@@ -90,31 +90,37 @@ class Feed extends Component<Props, {}> {
 
     handleDone = (item: TodoItem) => {
         const { todoList } = this.state
+        let status = '';
 
         if (item.completed === CompletedEnum.IN_PROGRESS) {
-            this.props.client.mutate({
-                mutation: UPDATE_TODO,
-                variables: {
-                    id: item.id,
-                    input: {
-                        title: item.title,
-                        completed: CompletedEnum.COMPLETED
-                    }
-                }
-            }).then((res: any) => {
-                let updatedTodos = [...todoList];
-                let index = -1;
-                find(updatedTodos, function (obj: TodoItem, idx: number) {
-                    index = idx
-                    return obj.id === item.id
-                })
-
-                updatedTodos[index].completed = CompletedEnum.COMPLETED;
-                this.setState({ text: '', todoList: [...updatedTodos] })
-            }).catch((err: any) => {
-                console.log("Err", err)
-            })
+            status = CompletedEnum.COMPLETED
         }
+        else {
+            status = CompletedEnum.IN_PROGRESS
+        }
+
+        this.props.client.mutate({
+            mutation: UPDATE_TODO,
+            variables: {
+                id: item.id,
+                input: {
+                    title: item.title,
+                    completed: status
+                }
+            }
+        }).then((res: any) => {
+            let updatedTodos = [...todoList];
+            let index = -1;
+            find(updatedTodos, function (obj: TodoItem, idx: number) {
+                index = idx
+                return obj.id === item.id
+            })
+
+            updatedTodos[index].completed = status;
+            this.setState({ text: '', todoList: [...updatedTodos] })
+        }).catch((err: any) => {
+            console.log("Err", err)
+        })
     }
 
     handleLogOut = () => {
@@ -133,7 +139,7 @@ class Feed extends Component<Props, {}> {
                 <Header title="ToDo" navigation={this.props.navigation} handleLogout={this.handleLogOut} />
                 <View style={Style.inputArea}>
                     <Input placeholder="Add task... " style={Style.textArea} value={text} onChangeText={(text) => this.setState({ text })} />
-                    <Button color={colors.appColor} text="Add" onPress={() => this.handleAddTodo()} />
+                    <Button color={colors.appColor} text="Add" onPress={this.handleAddTodo} />
                 </View>
                 <View style={loading ? Style.loading : Style.feed}>
                     {loading ?

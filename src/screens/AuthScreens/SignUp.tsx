@@ -103,7 +103,7 @@ class SignUp extends Component<Props, {}>{
                     <Input secureTextEntry={true} placeholder="Password..." style={inputFieldStyle} value={password} onChangeText={(password) => this.setState({ password })} />
                     {loading ?
                         <ActivityIndicator style={lodingStyle} />
-                        : <Button color={colors.purple} text="SIGN UP" width={SCREEN_WIDTH - 40} onPress={() => this.handleSignUp()} />}
+                        : <Button color={colors.purple} text="SIGN UP" width={SCREEN_WIDTH - 40} onPress={this.handleSignUp} />}
 
 
                 </View>

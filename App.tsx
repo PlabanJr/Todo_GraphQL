@@ -5,7 +5,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import createClient from "./src/graphql/client";
 import AppNavigator from './src/navigation/AppNavigator';
 
-export let client = createClient()
+const client = createClient()
 
 export default class App extends Component {
   render() {
