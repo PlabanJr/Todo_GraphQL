@@ -5,8 +5,6 @@ import { HttpLink } from 'apollo-link-http';
 import { ApolloLink, Observable } from "apollo-link";
 import { onError } from "apollo-link-error";
 
-
-
 const httpLink = "https://expressts-graphql.herokuapp.com/graphql"
 const cache = new InMemoryCache()
 
@@ -43,28 +41,38 @@ const requestLink = new ApolloLink(
         })
 );
 
+const defaultOptions = {
+    watchQuery: {
+        fetchPolicy: 'no-cache',
+        errorPolicy: 'ignore',
+    },
+    query: {
+        fetchPolicy: 'no-cache',
+        errorPolicy: 'all',
+    },
+}
+
 const client = new ApolloClient({
     link: ApolloLink.from([
         onError(({ graphQLErrors, networkError }) => {
             if (networkError) {
                 console.log(networkError.result.errors, "NET ERR")
-
                 return
             }
             if (graphQLErrors) {
                 graphQLErrors.map(({ message }) => console.log(message, 'GRAPHQL ERR'))
-                // console.log(graphQLErrors, 'GRAPHQL ERR')
                 return
             }
         }),
         requestLink,
         new HttpLink({
             uri: httpLink,
-            // credentials: "include"
+            credentials: "include"
         })
 
     ]),
-    cache
+    cache,
+    defaultOptions: defaultOptions,
 });
 
 
