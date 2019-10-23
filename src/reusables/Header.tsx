@@ -4,19 +4,21 @@ import { NavigationStackProp } from 'react-navigation-stack';
 
 import { colors } from '../constants'
 import { logOutService } from '../utils'
-import { client } from "../graphql/client";
 
 interface Props {
-    title: string
-    navigation: NavigationStackProp<{}>;
+    handleLogout: () => void;
+    title: string,
+    navigation: NavigationStackProp<{}>,
 }
 
 export default class Header extends Component<Props, {}> {
     handleLogout = async () => {
+        const { navigation, handleLogout } = this.props
+
         await logOutService()
             .then(() => {
-                client.resetStore()
-                this.props.navigation.navigate('AuthLoading')
+                navigation.navigate('AuthLoading')
+                handleLogout()
             })
     }
 

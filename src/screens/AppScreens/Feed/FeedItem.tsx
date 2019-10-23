@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
-import { Text, TouchableHighlight, View, StyleSheet } from 'react-native'
+import { Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Swipeable from 'react-native-swipeable';
 
 import { colors } from '../../../constants';
+import { TodoItem } from "../../../types";
+import { thisTypeAnnotation } from '@babel/types';
 
 interface Props {
-    item: { text: string, status: string }
+    item: TodoItem
+    handleDelete: (id: string) => void
+    handleDone: (id: TodoItem) => void
 }
 
 export default class FeedItem extends Component<Props, {}> {
@@ -32,22 +36,21 @@ export default class FeedItem extends Component<Props, {}> {
     }
 
     render() {
-        const { item } = this.props
-        let status = this.getStatusText(item.status);
+        const { item, handleDelete, handleDone } = this.props
+        const { id } = item
+        let status = this.getStatusText(item.completed);
         const rightButtons = [
-            <TouchableHighlight style={Style.button}>
-                <Text style={[Style.buttonText, { color: 'green', }]} >Done</Text>
-            </TouchableHighlight>,
-            <TouchableHighlight style={Style.button}>
-                <Text style={[Style.buttonText, { color: '#ff0000', }]}>Delete</Text>
-            </TouchableHighlight>
+            <TouchableOpacity style={Style.button} onPress={() => handleDone(item)}>
+                <Text style={[Style.buttonText, { color: colors.pendingColor, }]} >Done</Text>
+            </TouchableOpacity>,
+            <TouchableOpacity style={Style.button} onPress={() => handleDelete(id)}>
+                <Text style={[Style.buttonText, { color: colors.doneColor, }]}>Delete</Text>
+            </TouchableOpacity>
         ];
-
-
 
         return (
             <Swipeable rightButtons={rightButtons} style={Style.container}>
-                <Text style={Style.text}>{item.text} </Text>
+                <Text style={Style.text}>{item.title} </Text>
                 <Text style={[Style.status, { color: status.color }]}>{status.status} </Text>
             </Swipeable >
         )

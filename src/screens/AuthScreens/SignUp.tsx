@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withApollo } from "react-apollo";
-import { StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View, Alert, ActivityIndicator } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { NavigationStackProp } from 'react-navigation-stack';
 
@@ -19,12 +19,11 @@ interface Props {
 class SignUp extends Component<Props, {}>{
     state = {
         email: '',
+        loading: false,
         gender: '',
         password: '',
         userName: '',
     }
-
-
 
     handleSignUp = async () => {
         const { userName, gender, password, email } = this.state
@@ -56,6 +55,8 @@ class SignUp extends Component<Props, {}>{
             gender: gender,
         }
 
+        this.setState({ loading: true })
+
         await this.props.client.mutate({
             mutation: SIGN_UP,
             variables: {
@@ -63,7 +64,7 @@ class SignUp extends Component<Props, {}>{
             }
         })
             .then((res: any) => {
-                console.log(res, "Res")
+                this.setState({ loading: false })
                 let token = res.data.signUp.token;
                 let userName = res.data.signUp.fullname;
 
@@ -72,15 +73,18 @@ class SignUp extends Component<Props, {}>{
             })
             .catch((err: any) => {
                 console.log(err, "err")
+                this.setState({ loading: false })
+                Alert.alert("Sign up failed! Please try again.")
             })
     }
 
     render() {
         console.log(this.state, 'ikhgib')
         const { navigation } = this.props
-        const { userName, gender, password, email } = this.state
+        const { loading, userName, gender, password, email } = this.state
         const inputFieldStyle = StyleSheet.flatten([{ borderColor: colors.blue, marginBottom: 10, width: SCREEN_WIDTH - 40 }])
         const upperFieldStyle = StyleSheet.flatten([inputFieldStyle, { width: SCREEN_WIDTH / 2 - 25 }])
+        const lodingStyle = StyleSheet.flatten([Style.loading, { backgroundColor: colors.purple }])
 
         return (
             <KeyboardAwareScrollView contentContainerStyle={Style.container}>
@@ -96,8 +100,12 @@ class SignUp extends Component<Props, {}>{
                         <Input placeholder="Gender..." style={upperFieldStyle} value={gender} onChangeText={(gender) => this.setState({ gender })} />
                     </View>
                     <Input placeholder="Email..." style={inputFieldStyle} value={email} onChangeText={(email) => this.setState({ email })} />
-                    <Input placeholder="Password..." style={inputFieldStyle} value={password} onChangeText={(password) => this.setState({ password })} />
-                    <Button color={colors.purple} text="SIGN UP" width={SCREEN_WIDTH - 40} onPress={() => this.handleSignUp()} />
+                    <Input secureTextEntry={true} placeholder="Password..." style={inputFieldStyle} value={password} onChangeText={(password) => this.setState({ password })} />
+                    {loading ?
+                        <ActivityIndicator style={lodingStyle} />
+                        : <Button color={colors.purple} text="SIGN UP" width={SCREEN_WIDTH - 40} onPress={() => this.handleSignUp()} />}
+
+
                 </View>
             </KeyboardAwareScrollView>
         )

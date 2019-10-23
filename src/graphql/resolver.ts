@@ -1,20 +1,5 @@
 import gql from 'graphql-tag';
 
-interface UserInfo {
-    id?: string
-    password: string
-    email: string
-    fullname: string
-    deviceId?: string
-    gender?: string
-}
-
-enum CompletedEnum {
-    PENDING,
-    COMPLETED,
-    IN_PROGRESS
-}
-
 export const SIGN_UP = gql`
     mutation SingUpResult($user: UserInfo!){
         signUp(user: $user){
@@ -38,13 +23,46 @@ export const LOGIN_USER = gql`
     }`
 
 export const ADD_TODO = gql`
-    mutation Todo($title: String!, $completed: CompletedEnum!) {
-        createTodo(input: {title: $title, completed: $completed}){
+    mutation Todo($input: TodoInput!) {
+        createTodo(input: $input){
             id
 			title
 			completed
 			owner_id
-			ollaborater_ids
+			collaborater_ids
         }
-}
-`
+    }`
+
+export const LIST_TODOS = gql`
+    query Todo {
+        allMyTodos{
+            id
+			title
+            completed
+            owner_id
+            collaborater_ids
+        }
+    }`
+
+export const REMOVE_TODO = gql`
+    mutation Todo($id: ID!) {
+        deleteTodo(id: $id){
+            id
+			title
+			completed
+			owner_id
+			collaborater_ids
+        }
+    }`
+
+export const UPDATE_TODO = gql`
+    mutation Todo($id: ID!, $input: TodoInput!) {
+        updateTodo(id: $id, input: $input){
+            id
+			title
+			completed
+			owner_id
+			collaborater_ids
+        }
+    }`
+

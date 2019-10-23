@@ -6,6 +6,7 @@ interface Props {
     placeholder: string,
     style: object,
     value?: string
+    secureTextEntry?: boolean
 }
 
 export default class Input extends Component<Props, {}> {
